@@ -1,0 +1,7 @@
+.popup__container_type-dark {
+    padding-top: 20px;
+    /* background-color: black; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

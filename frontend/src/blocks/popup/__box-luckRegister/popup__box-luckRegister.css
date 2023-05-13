@@ -1,0 +1,9 @@
+.popup__box-luckRegister{
+    display: flex;
+    flex-direction: column;
+    width: 355px;
+    height: 260px;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+}
