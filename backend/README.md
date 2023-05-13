@@ -23,4 +23,3 @@
 
 `npm run start` — запускает сервер   
 `npm run live` — запускает сервер с hot-reload
-
