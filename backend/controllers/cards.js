@@ -35,6 +35,7 @@ const deleteCard = (req, res, next) => { // проверять
         if (req.user._id === owner) {
           Card.deleteOne(card).then(() => {
             res.send({ card });
+            return;
           });
         }
         next(new Forbiden('Чужие карточки удалить нельзя!'));
