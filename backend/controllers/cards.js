@@ -24,9 +24,9 @@ const getCards = (req, res, next) => {
     .catch(next);
 };
 
-const deleteCard = (req, res, next) => { // проверять
+const deleteCard = (req, res, next) => {
   const { cardId } = req.params;
-  Card.findById({ _id: cardId })
+  Card.findById(cardId)
     .then((card) => {
       if (!card) {
         next(new NotFound('Карточка с указанным _id не найдена.'));
@@ -35,7 +35,6 @@ const deleteCard = (req, res, next) => { // проверять
         if (req.user._id === owner) {
           Card.deleteOne(card).then(() => {
             res.send({ card });
-            return;
           });
         }
         next(new Forbiden('Чужие карточки удалить нельзя!'));
