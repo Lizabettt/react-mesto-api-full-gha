@@ -30,7 +30,7 @@ export default function Register({ onRegister }) {
       ></StartPage>
       <p className="popup__question">
         Уже зарегистрированы? &nbsp;
-        <Link className="popup__linkSignIn" to="/sign-in">
+        <Link className="popup__linkSignIn" to="/sigin">
           Войти
         </Link>
       </p>

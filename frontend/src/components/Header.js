@@ -6,17 +6,17 @@ export default function Header({ onExit, email }) {
 
   return (
     <header className="header">
-      <Link className="header__logo" to="/sign-in">
+      <Link className="header__logo" to="/signin">
         <img className="header__logo-pic" src={logo} alt="Логотип" />
       </Link>
       <div className="header__box">
-        {location.pathname === "/sign-in" && (
-          <Link className="header__link" to="/sign-up">
+        {location.pathname === "/signin" && (
+          <Link className="header__link" to="/signup">
             Регистрация
           </Link>
         )}
-        {location.pathname === "/sign-up" && (
-          <Link className="header__link" to="/sign-in">
+        {location.pathname === "/signup" && (
+          <Link className="header__link" to="/signin">
             Войти
           </Link>
         )}
@@ -26,7 +26,7 @@ export default function Header({ onExit, email }) {
             <p className="header__email">{email}</p>
             <Link
               className="header__link"
-              to="/sign-in"
+              to="/signin"
               onClick={() => onExit()}
             >
               Выйти
