@@ -19,7 +19,7 @@ class Auth {
       headers: this._headers,
       body: JSON.stringify({ email, password }),
     }).then((res) => this._result(res));
-  }
+  }cd
   //регистрация
   register(email, password) {
     return fetch(`${this._url}/signup`, {

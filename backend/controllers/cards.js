@@ -36,6 +36,7 @@ const deleteCard = (req, res, next) => {
           Card.deleteOne(card).then(() => {
             res.send({ card });
           });
+          return;
         }
         next(new Forbiden('Чужие карточки удалить нельзя!'));
       }
