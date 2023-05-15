@@ -39,11 +39,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // const { NotFound } = require('./errors');
 const router = require('./routes');
 
-app.use(router);
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+app.use(requestLogger);// за ним идут все обработчики роутов
 
-app.use(requestLogger);
-
+app.use(router);
 app.use(errorLogger);
 app.use(errors());
 
