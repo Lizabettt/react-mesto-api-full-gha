@@ -32,17 +32,15 @@ class Auth {
   getToken(token) {
     return fetch(`${this._url}/users/me`, {
       method: "GET",
-
-      headers: this._headers,
       headers: {
         ...this._headers,
-        Authorization: `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
     }).then((res) => this._result(res));
   }
 }
 const auth = new Auth({
-  url: "https://auth.nomoreparties.co",
+  url: "https://api.mesto-kuskova.nomoredomains.monster",
   headers: {
     "Content-Type": "application/json",
   },

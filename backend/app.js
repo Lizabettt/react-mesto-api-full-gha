@@ -5,13 +5,14 @@ const express = require('express');
 
 const app = express();
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3005 } = process.env;
 
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 
-
+const cors = require('./middlewares/cors');
+app.use(cors);
 /* 15пр
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 app.use(requestLogger); // подключаем логгер запросов
@@ -34,12 +35,21 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const { errors } = require('celebrate');
+
 // const { NotFound } = require('./errors');
 const router = require('./routes');
-
 app.use(router);
+const { requestLogger, errorLogger } = require('./middlewares/logger');
+app.use(requestLogger);
+const { errors } = require('celebrate');
+app.use(errorLogger);
 app.use(errors());
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;// если у ошибки нет статуса, выставляем 500

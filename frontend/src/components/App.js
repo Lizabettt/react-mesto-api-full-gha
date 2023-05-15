@@ -86,7 +86,7 @@ export default function App() {
         .then((res) => {
           if (res) {
             setLoggedIn(true);
-            setEmailUserHeader(res.data.email);
+            setEmailUserHeader(res.email);
             navigate("/");
             console.log("token");
           }
@@ -176,7 +176,7 @@ export default function App() {
       Promise.all([api.getUserData(), api.getAllCards()])
         .then(([userData, cardData]) => {
           setCurrentUser(userData);
-          setCards(cardData);
+          setCards(cardData.reverse());
         })
         .catch((err) => {
           console.log(err);

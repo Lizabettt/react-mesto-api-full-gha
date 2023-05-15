@@ -4,8 +4,8 @@ const { NotFound, BadRequest, Forbiden } = require('../errors');
 const createCard = (req, res, next) => {
   const { name, link } = req.body;
   const owner = req.user._id;
-  return Card.create({ name, link, owner })
-    .then((card) => res.status(201).send({ card }))
+  return Card.create({ name, link, owner: owner})
+    .then((newCard) => res.status(201).send({ newCard }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(
@@ -19,13 +19,14 @@ const createCard = (req, res, next) => {
 
 const getCards = (req, res, next) => {
   Card.find({})
+  .populate(['owner', 'likes'])
     .then((cards) => res.send({ cards }))
     .catch(next);
 };
 
-const deleteCard = (req, res, next) => {
+const deleteCard = (req, res, next) => {// проверять
   const { cardId } = req.params;
-  Card.findById(cardId)
+  Card.findById({_id: cardId})
     .then((card) => {
       if (!card) {
         next(new NotFound('Карточка с указанным _id не найдена.'));
@@ -58,6 +59,7 @@ const onLikedCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
+  .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
         next(new NotFound('Карточка с указанным _id не найдена.'));
@@ -83,6 +85,7 @@ const offLikedCard = (req, res, next) => {
     { $pull: { likes: req.user._id } },
     { new: true },
   )
+  .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
         next(new NotFound('Карточка с указанным _id не найдена.'));

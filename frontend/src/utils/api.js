@@ -82,11 +82,11 @@ class Api {
   }
 }
 const api = new Api({
-  url: "https://mesto.nomoreparties.co/v1/cohort-58",
+  url: "https://api.mesto-kuskova.nomoredomains.monster", //http://api.mesto-kuskova.nomoredomains.monster/
   headers: {
-    authorization: "5e82f2f9-4ad1-4820-bbab-0c86035a81ab",
     "Content-Type": "application/json",
-  },
+    authorization: `Bearer ${localStorage.getItem('jwt')}`,
+  },       
 });
 
 export default api;

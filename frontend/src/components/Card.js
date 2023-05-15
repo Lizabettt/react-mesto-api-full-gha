@@ -9,7 +9,7 @@ export default function Card({
     
   const currentUser = useContext(CurrentUserContext);
 
-  const isOwn = card.owner._id === currentUser._id;
+  const isOwn = (card.owner._id || card.owner) === currentUser._id;// проверить
   const isLiked = card.likes.some(
     (selectedCard) => selectedCard._id === currentUser._id
   );
