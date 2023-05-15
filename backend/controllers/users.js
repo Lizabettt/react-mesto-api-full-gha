@@ -7,16 +7,13 @@ const { Conflict, BadRequest, NotFound } = require('../errors');
 const { JWT_SECRET, NODE_ENV } = process.env;
 
 const createUser = (req, res, next) => {
-  const {
-    name, about, avatar, email, password,
-  } = req.body;
   bcrypt.hash(req.body.password, 10).then((hash) => {
     User.create({
       name: req.body.name,
-        about: req.body.about,
-        avatar: req.body.avatar,
-        email: req.body.email,
-        password: hash,
+      about: req.body.about,
+      avatar: req.body.avatar,
+      email: req.body.email,
+      password: hash,
     })
       .then((newUser) => res.status(201).send({
         name: newUser.name,
@@ -46,10 +43,13 @@ const login = (req, res, next) => {
   const { email, password } = req.body;
   User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'JWT_SECRET', {
-        expiresIn: '7d', // 7 дня -это время, в течение которого токен остаётся действительным.
-      });
+      const token = jwt.sign(
+        { _id: user._id },
+        NODE_ENV === 'production' ? JWT_SECRET : 'JWT_SECRET',
+        {
+          expiresIn: '7d', // 7 дня -это время, в течение которого токен остаётся действительным.
+        },
+      );
       res.send({ token }); // аутентификация успешна
     })
     .catch(next);
@@ -57,7 +57,7 @@ const login = (req, res, next) => {
 
 const getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.send({ users })) //data: users?
+    .then((users) => res.send({ users })) // data: users?
     .catch(next);
 };
 

@@ -4,7 +4,7 @@ const { NotFound, BadRequest, Forbiden } = require('../errors');
 const createCard = (req, res, next) => {
   const { name, link } = req.body;
   const owner = req.user._id;
-  return Card.create({ name, link, owner: owner})
+  return Card.create({ name, link, owner })
     .then((newCard) => res.status(201).send({ newCard }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -19,27 +19,25 @@ const createCard = (req, res, next) => {
 
 const getCards = (req, res, next) => {
   Card.find({})
-  .populate(['owner', 'likes'])
+    .populate(['owner', 'likes'])
     .then((cards) => res.send({ cards }))
     .catch(next);
 };
 
-const deleteCard = (req, res, next) => {// проверять
+const deleteCard = (req, res, next) => { // проверять
   const { cardId } = req.params;
-  Card.findById({_id: cardId})
+  Card.findById({ _id: cardId })
     .then((card) => {
       if (!card) {
         next(new NotFound('Карточка с указанным _id не найдена.'));
-        return
       } else {
         const owner = card.owner.toString();
         if (req.user._id === owner) {
-          return Card.deleteOne(card).then(() => {
+          Card.deleteOne(card).then(() => {
             res.send({ card });
           });
         }
         next(new Forbiden('Чужие карточки удалить нельзя!'));
-        return
       }
     })
     .catch((err) => {
@@ -59,11 +57,10 @@ const onLikedCard = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
-  .populate(['owner', 'likes'])
+    .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
         next(new NotFound('Карточка с указанным _id не найдена.'));
-        return
       } else {
         res.send({ card });
       }
@@ -85,11 +82,10 @@ const offLikedCard = (req, res, next) => {
     { $pull: { likes: req.user._id } },
     { new: true },
   )
-  .populate(['owner', 'likes'])
+    .populate(['owner', 'likes'])
     .then((card) => {
       if (!card) {
         next(new NotFound('Карточка с указанным _id не найдена.'));
-        return
       } else {
         res.send({ card });
       }

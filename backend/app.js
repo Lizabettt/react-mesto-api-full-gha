@@ -5,13 +5,17 @@ const express = require('express');
 
 const app = express();
 
-const { PORT = 3005 } = process.env;
+const { PORT = 3000 } = process.env;
 
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 
+const bodyParser = require('body-parser');
+const { errors } = require('celebrate');
+const rateLimit = require('express-rate-limit');
 const cors = require('./middlewares/cors');
+
 app.use(cors);
 /* 15пр
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -22,7 +26,6 @@ errorLogger нужно подключить после обработчиков 
 
 */
 
-const rateLimit = require('express-rate-limit');
 //  Чтобы защититься от множества автоматических запросов
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // за 15 минут
@@ -30,18 +33,17 @@ const limiter = rateLimit({
 });
 app.use(limiter);// подключаем rate-limiter
 
-const bodyParser = require('body-parser');
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 // const { NotFound } = require('./errors');
 const router = require('./routes');
+
 app.use(router);
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+
 app.use(requestLogger);
-const { errors } = require('celebrate');
+
 app.use(errorLogger);
 app.use(errors());
 
