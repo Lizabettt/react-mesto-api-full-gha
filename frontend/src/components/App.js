@@ -103,9 +103,10 @@ export default function App() {
         });
     }
   }
+ // eslint-disable-next-line 
   useEffect(() => {
     handleToken();
-  }, [loggedIn]);
+  }, []); //  loggedIn
 
   //выход
   function handleExit() {
