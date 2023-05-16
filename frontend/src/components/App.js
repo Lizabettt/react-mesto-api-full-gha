@@ -176,7 +176,7 @@ export default function App() {
       Promise.all([api.getUserData(), api.getAllCards()])
         .then(([userData, cardData]) => {
           setCurrentUser(userData);
-          setCards(cardData);
+          setCards(cardData.reverse());
         })
         .catch((err) => {
           console.log(err);
