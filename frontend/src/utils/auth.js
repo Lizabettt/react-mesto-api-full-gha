@@ -32,7 +32,7 @@ class Auth {
   getToken(token) {
     return fetch(`${this._url}/users/me`, {
       method: "GET",
-      headers: this._headers,
+      //headers: this._headers,
       headers: {
         ...this._headers,
         authorization: `Bearer ${token}`,
