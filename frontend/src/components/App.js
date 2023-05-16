@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import ProtectedRouteElement from './ProtectedRoute';
 
-import api from '../utils/api';
+import Api from '../utils/api';
 import auth from '../utils/auth.js';
 
 import CurrentUserContext from '../contexts/CurrentUserContext';
@@ -37,6 +37,14 @@ export default function App() {
 
   const [luckRegister, setLuckRegister] = useState(false);
   const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
+
+  const api = new Api({
+    url: 'https://api.mesto-kuskova.nomoredomains.monster', //'localhost:3005'
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: `Bearer ${localStorage.getItem('jwt')}`,
+    },
+  });
 
   //авторизация
   function handleLogin(dataLog) {

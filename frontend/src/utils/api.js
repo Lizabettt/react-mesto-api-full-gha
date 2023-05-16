@@ -1,4 +1,4 @@
-class Api {
+export default class Api {
   constructor({ url, headers }) {
     this._url = url;
     this._headers = headers;
@@ -75,18 +75,9 @@ class Api {
 
   //лайк?
   changeLikeCardStatus(idCard, isLiked) {
-    return fetch(`${this._url}/cards/likes/${idCard}`, {
+    return fetch(`${this._url}/cards/${idCard}/likes`, {
       method: !isLiked ? 'PUT' : 'DELETE',
       headers: this._headers,
     }).then((res) => this._result(res));
   }
 }
-const api = new Api({
-  url: 'https://api.mesto-kuskova.nomoredomains.monster', //'localhost:3005'
-  headers: {
-    'Content-Type': 'application/json',
-    authorization: `Bearer ${localStorage.getItem('jwt')}`,
-  },
-});
-
-export default api;
