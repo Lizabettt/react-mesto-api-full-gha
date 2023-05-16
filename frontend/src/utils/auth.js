@@ -42,7 +42,7 @@ class Auth {
   }
 }
 const auth = new Auth({
-  url: 'https://api.mesto-kuskova.nomoredomains.monster',
+  url: 'localhost:3005',//'https://api.mesto-kuskova.nomoredomains.monster'
   headers: {
     'Content-Type': 'application/json',
   },
