@@ -21,7 +21,7 @@ export default class Api {
     }).then((res) => this._result(res));
   }
 
-  //получаем все карочки с сервера
+  //получаем все карточки с сервера
   getAllCards() {
     return fetch(`${this._url}/cards`, {
       method: 'GET',
