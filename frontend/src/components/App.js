@@ -174,9 +174,9 @@ export default function App() {
   useEffect(() => {
     if (loggedIn) {
       Promise.all([api.getUserData(), api.getAllCards()])
-        .then(([userData, cardData]) => {
-          setCurrentUser(userData);
-          setCards(cardData.reverse());
+        .then(([user, cards]) => {
+          setCurrentUser(user);
+          setCards(cards.reverse());
         })
         .catch((err) => {
           console.log(err);
