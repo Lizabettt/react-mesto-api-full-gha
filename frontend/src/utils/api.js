@@ -82,7 +82,7 @@ class Api {
   }
 }
 const api = new Api({
-  url: 'localhost:3005', //'https://api.mesto-kuskova.nomoredomains.monster'
+  url: 'https://api.mesto-kuskova.nomoredomains.monster', //'localhost:3005'
   headers: {
     'Content-Type': 'application/json',
     authorization: `Bearer ${localStorage.getItem('jwt')}`,

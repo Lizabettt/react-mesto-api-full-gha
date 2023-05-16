@@ -15,16 +15,15 @@ class Auth {
   //авторизация
   login(email, password) {
     return fetch(`${this._url}/signin`, {
-      method: 'POST',
+      method: "POST",
       headers: this._headers,
       body: JSON.stringify({ email, password }),
     }).then((res) => this._result(res));
-  }
-  cd;
+  }cd
   //регистрация
   register(email, password) {
     return fetch(`${this._url}/signup`, {
-      method: 'POST',
+      method: "POST",
       headers: this._headers,
       body: JSON.stringify({ email, password }),
     }).then((res) => this._result(res));
@@ -32,7 +31,7 @@ class Auth {
   //токен
   getToken(token) {
     return fetch(`${this._url}/users/me`, {
-      method: 'GET',
+      method: "GET",
       headers: this._headers,
       headers: {
         ...this._headers,
@@ -42,9 +41,9 @@ class Auth {
   }
 }
 const auth = new Auth({
-  url: 'localhost:3005',//'https://api.mesto-kuskova.nomoredomains.monster'
+  url: "https://api.mesto-kuskova.nomoredomains.monster",
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
