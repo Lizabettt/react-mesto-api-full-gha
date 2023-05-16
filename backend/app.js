@@ -40,6 +40,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const router = require('./routes');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+
 app.use(requestLogger);// за ним идут все обработчики роутов
 
 app.use(router);
