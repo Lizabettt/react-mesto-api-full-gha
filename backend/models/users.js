@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
     select: false, // Так по умолчанию хеш пароля пользователя не будет возвращаться из базы
   },
 });
-
+// eslint-disable-next-line
 userSchema.statics.findUserByCredentials = function (email, password) {
   return this.findOne({ email })
     .select('+password')

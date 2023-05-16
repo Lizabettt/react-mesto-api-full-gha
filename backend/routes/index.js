@@ -8,6 +8,7 @@ const { NotFound } = require('../errors');
 // eslint-disable-next-line
 const regURL =/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
 
+// запрос на вход
 router.post(
   '/signin',
   celebrate({
@@ -19,6 +20,7 @@ router.post(
   login,
 );
 
+// запрос на регистрацию
 router.post(
   '/signup',
   celebrate({

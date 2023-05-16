@@ -10,8 +10,13 @@ const {
   changeAvatar,
 } = require('../controllers/users');
 
+// запрос всех пользователей
 userRouter.get('/', getUsers);
+
+// запрос моего пользователя
 userRouter.get('/me', getUserMy);
+
+// запрос пользователя по id
 userRouter.get(
   '/:userId',
   celebrate({
@@ -22,6 +27,7 @@ userRouter.get(
   getUserId,
 );
 
+// запрос на изменение данных пользователя
 userRouter.patch(
   '/me',
   celebrate({
@@ -32,6 +38,8 @@ userRouter.patch(
   }),
   changeUserData,
 );
+
+// запрос на изменение аватара пользователя
 userRouter.patch(
   '/me/avatar',
   celebrate({

@@ -10,7 +10,10 @@ const {
   offLikedCard,
 } = require('../controllers/cards');
 
+// запрос карточек
 cardRouter.get('/', getCards);
+
+// запрос на отправление карточки в бд
 cardRouter.post(
   '/',
   celebrate({
@@ -21,6 +24,8 @@ cardRouter.post(
   }),
   createCard,
 );
+
+// запрос на удаление карточки из бд
 cardRouter.delete(
   '/:cardId',
   celebrate({
@@ -30,6 +35,8 @@ cardRouter.delete(
   }),
   deleteCard,
 );
+
+// запрос на установку лайка
 cardRouter.put(
   '/:cardId/likes',
   celebrate({
@@ -39,6 +46,8 @@ cardRouter.put(
   }),
   onLikedCard,
 );
+
+// запрос на удаление лайка
 cardRouter.delete(
   '/:cardId/likes',
   celebrate({

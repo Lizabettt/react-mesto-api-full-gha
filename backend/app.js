@@ -1,5 +1,4 @@
 require('dotenv').config(); // env-переменные из файла .env добавятся в process.env ; .env вгит игнор добавить
-// console.log(process.env.NODE_ENV); // production
 
 const express = require('express');
 
@@ -17,14 +16,6 @@ const rateLimit = require('express-rate-limit');
 const cors = require('./middlewares/cors');
 
 app.use(cors);
-/* 15пр
-const { requestLogger, errorLogger } = require('./middlewares/logger');
-app.use(requestLogger); // подключаем логгер запросов
-
-за ним идут все обработчики роутов
-errorLogger нужно подключить после обработчиков роутов и до обработчиков ошибок:
-
-*/
 
 //  Чтобы защититься от множества автоматических запросов
 const limiter = rateLimit({
@@ -36,7 +27,6 @@ app.use(limiter);// подключаем rate-limiter
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// const { NotFound } = require('./errors');
 const router = require('./routes');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
