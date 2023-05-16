@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import useForm from "../hooks/useForm";
-import StartPage from "./StartPage";
+import { useEffect } from 'react';
+import useForm from '../hooks/useForm';
+import StartPage from './StartPage';
 
 export default function Login({ onLogin }) {
   const { values, setValues, handleChange } = useForm({});
@@ -19,13 +19,13 @@ export default function Login({ onLogin }) {
 
   return (
     <StartPage
-      name="login"
-      title="Вход"
-      btnText="Войти"
+      name='login'
+      title='Вход'
+      btnText='Войти'
       onSubmit={handleSubmit}
       onChange={handleChange}
-      valuesEmail={values.email || ""}
-      valuesPassword={values.password || ""}
+      valuesEmail={values.email || ''}
+      valuesPassword={values.password || ''}
     ></StartPage>
   );
 }

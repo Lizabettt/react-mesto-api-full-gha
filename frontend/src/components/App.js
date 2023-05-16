@@ -1,25 +1,25 @@
-import { useState, useEffect } from "react";
-import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
-import ProtectedRouteElement from "./ProtectedRoute";
+import { useState, useEffect } from 'react';
+import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import ProtectedRouteElement from './ProtectedRoute';
 
-import api from "../utils/api";
-import auth from "../utils/auth.js";
+import api from '../utils/api';
+import auth from '../utils/auth.js';
 
-import CurrentUserContext from "../contexts/CurrentUserContext";
+import CurrentUserContext from '../contexts/CurrentUserContext';
 
-import Header from "./Header";
-import Main from "./Main";
-import Footer from "./Footer";
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
 
-import PopupWithForm from "./PopupWithForm";
-import ImagePopup from "./ImagePopup";
-import EditProfilePopup from "./EditProfilePopup";
-import EditAvatarPopup from "./EditAvatarPopup";
-import AddPlacePopup from "./AddPlacePopup";
-import Login from "./Login";
-import Register from "./Register";
+import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
+import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
+import Login from './Login';
+import Register from './Register';
 
-import InfoTooltip from "./InfoTooltip";
+import InfoTooltip from './InfoTooltip';
 
 export default function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -27,11 +27,11 @@ export default function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isDataCards, setDataCards] = useState({});
   const [chooseCard, setChooseCard] = useState(null);
-  const [currentUser, setCurrentUser] = useState("");
+  const [currentUser, setCurrentUser] = useState('');
   const [cards, setCards] = useState([]);
 
   const [loggedIn, setLoggedIn] = useState(false);
-  const [emailUserHeader, setEmailUserHeader] = useState("");
+  const [emailUserHeader, setEmailUserHeader] = useState('');
 
   const navigate = useNavigate();
 
@@ -44,14 +44,14 @@ export default function App() {
       .login(dataLog.email, dataLog.password)
       .then((res) => {
         if (res.token) {
-          localStorage.setItem("jwt", res.token);
+          localStorage.setItem('jwt', res.token);
           setLoggedIn(true);
-          navigate("/");
+          navigate('/');
         }
       })
       .catch((err) => {
         setLuckRegister(false);
-      setInfoTooltipPopupOpen(true);
+        setInfoTooltipPopupOpen(true);
         console.log(err);
       });
   }
@@ -59,27 +59,26 @@ export default function App() {
   //регистрация
   function handleRegister(dataReg) {
     auth
-    .register(dataReg.email, dataReg.password)
-    .then((data) => {
-      if (data) {
-        console.log("reg");
-        setLoggedIn(true);
-        navigate("/signin");
-        setLuckRegister(true);
-        setInfoTooltipPopupOpen(true)
-      }
-    })
-    .catch((err) => {
-      setLuckRegister(false);
-      setInfoTooltipPopupOpen(true)
-      console.log(err);
-    });
-    
+      .register(dataReg.email, dataReg.password)
+      .then((data) => {
+        if (data) {
+          console.log('reg');
+          setLoggedIn(true);
+          navigate('/signin');
+          setLuckRegister(true);
+          setInfoTooltipPopupOpen(true);
+        }
+      })
+      .catch((err) => {
+        setLuckRegister(false);
+        setInfoTooltipPopupOpen(true);
+        console.log(err);
+      });
   }
 
   //сверим токен и авторизацию
   function handleToken() {
-    const jwt = localStorage.getItem("jwt");
+    const jwt = localStorage.getItem('jwt');
     if (jwt) {
       auth
         .getToken(jwt)
@@ -87,8 +86,8 @@ export default function App() {
           if (res) {
             setLoggedIn(true);
             setEmailUserHeader(res.email);
-            navigate("/");
-            console.log("token");
+            navigate('/');
+            console.log('token');
           }
         })
         .catch((err) => {
@@ -103,8 +102,8 @@ export default function App() {
   //выход
   function handleExit() {
     setLoggedIn(false);
-    localStorage.removeItem("jwt");
-    navigate("/signin");
+    localStorage.removeItem('jwt');
+    navigate('/signin');
   }
 
   //смена аватара
@@ -176,7 +175,7 @@ export default function App() {
       Promise.all([api.getUserData(), api.getAllCards()])
         .then(([user, cards]) => {
           setCurrentUser(user);
-          setCards(cards.reverse());
+          setCards(cards);
         })
         .catch((err) => {
           console.log(err);
@@ -220,16 +219,16 @@ export default function App() {
   return (
     <div>
       <CurrentUserContext.Provider value={currentUser}>
-        <div className="page">
-          <Header 
-          onExit={handleExit} 
-          email={emailUserHeader} 
-          />
+        <div className='page'>
+          <Header onExit={handleExit} email={emailUserHeader} />
           <Routes>
-            <Route path="/signin" element={<Login onLogin={handleLogin} />} />
-            <Route path="/signup" element={<Register onRegister={handleRegister} />}/>
+            <Route path='/signin' element={<Login onLogin={handleLogin} />} />
             <Route
-              path="/"
+              path='/signup'
+              element={<Register onRegister={handleRegister} />}
+            />
+            <Route
+              path='/'
               element={
                 <ProtectedRouteElement
                   element={Main}
@@ -244,7 +243,7 @@ export default function App() {
                 />
               }
             />
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path='*' element={<Navigate to='/' replace />} />
           </Routes>
           <Footer />
         </div>
@@ -264,21 +263,22 @@ export default function App() {
           onAddPlace={handleAddPlaceSubmit}
         />
         <PopupWithForm
-          name="delete"
-          title="Вы уверены?"
-          btnText="Да"
+          name='delete'
+          title='Вы уверены?'
+          btnText='Да'
         ></PopupWithForm>
 
         <ImagePopup
-          name="img"
+          name='img'
           card={isDataCards}
           isOpen={chooseCard}
           onClose={closeAllPopups}
         />
         <InfoTooltip
-            isOpen={isInfoTooltipPopupOpen}
-            onClose={closeAllPopups}
-            luckRegister={luckRegister}  />
+          isOpen={isInfoTooltipPopupOpen}
+          onClose={closeAllPopups}
+          luckRegister={luckRegister}
+        />
       </CurrentUserContext.Provider>
     </div>
   );

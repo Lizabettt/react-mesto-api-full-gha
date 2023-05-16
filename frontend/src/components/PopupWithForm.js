@@ -1,5 +1,5 @@
-import closeIcon from "../images/Close_Icon.png";
-import { useEffect } from "react";
+import closeIcon from '../images/Close_Icon.png';
+import { useEffect } from 'react';
 
 export default function PopupWithForm({
   name,
@@ -13,48 +13,50 @@ export default function PopupWithForm({
 }) {
   //закрытие по esc
   function handleEscClose(evt) {
-    evt.key === "Escape" && onClose();
+    evt.key === 'Escape' && onClose();
   }
 
   useEffect(() => {
-    document.addEventListener("keydown", handleEscClose);
-    return () => document.removeEventListener("keydown", handleEscClose);
+    document.addEventListener('keydown', handleEscClose);
+    return () => document.removeEventListener('keydown', handleEscClose);
   });
 
   //разметка
   return (
     <div
       className={`popup popup_type-${name} 
-    ${isOpen ? "popup_opened" : ""}`}
+    ${isOpen ? 'popup_opened' : ''}`}
       onClick={onClose}
     >
       <div
         className={`popup__container popup__container_type-${nameColor}`}
         onClick={(evt) => evt.stopPropagation()}
       >
-        <button className={`popup__btn-close_type-${nameColor}`} type="button">
+        <button className={`popup__btn-close_type-${nameColor}`} type='button'>
           <img
-            className="popup__btn-close-pic"
+            className='popup__btn-close-pic'
             src={closeIcon}
-            alt="Закрыть"
+            alt='Закрыть'
             onClick={onClose}
           />
         </button>
-        <h2 className={`popup__title popup__title_type-${nameColor}`}>{title} </h2>
+        <h2 className={`popup__title popup__title_type-${nameColor}`}>
+          {title}{' '}
+        </h2>
         <form
           className={`popup__form popup__form_type-${name}`}
-          action="popup__form"
-          name="popup__name"
-          method="post"
+          action='popup__form'
+          name='popup__name'
+          method='post'
           noValidate
           onSubmit={onSubmit}
         >
           {children}
           <button
             className={`popup__btn popup__btn-create popup__btn_type-${nameColor}`}
-            type="submit"
+            type='submit'
           >
-            {btnText || "Сохранить"}
+            {btnText || 'Сохранить'}
           </button>
         </form>
       </div>

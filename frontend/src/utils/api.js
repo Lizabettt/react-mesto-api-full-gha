@@ -16,7 +16,7 @@ class Api {
   //получаем данные пользователя
   getUserData() {
     return fetch(`${this._url}/users/me`, {
-      method: "GET",
+      method: 'GET',
       headers: this._headers,
     }).then((res) => this._result(res));
   }
@@ -24,7 +24,7 @@ class Api {
   //получаем все карочки с сервера
   getAllCards() {
     return fetch(`${this._url}/cards`, {
-      method: "GET",
+      method: 'GET',
       headers: this._headers,
     }).then((res) => this._result(res));
   }
@@ -32,7 +32,7 @@ class Api {
   //меняем имя пользователя
   changeUserData(data) {
     return fetch(`${this._url}/users/me`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
@@ -44,7 +44,7 @@ class Api {
   //меняем аватарку
   changeAvatar(data) {
     return fetch(`${this._url}/users/me/avatar`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
         avatar: data.avatar,
@@ -56,7 +56,7 @@ class Api {
   //данные берем из попапа добавления новой карточки
   createNewCard(data) {
     return fetch(`${this._url}/cards`, {
-      method: "POST",
+      method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
@@ -68,7 +68,7 @@ class Api {
   //удаление карточки
   deleteCard(idCard) {
     return fetch(`${this._url}/cards/${idCard}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: this._headers,
     }).then((res) => this._result(res));
   }
@@ -76,17 +76,17 @@ class Api {
   //лайк?
   changeLikeCardStatus(idCard, isLiked) {
     return fetch(`${this._url}/cards/likes/${idCard}`, {
-      method: !isLiked ? "PUT" : "DELETE",
+      method: !isLiked ? 'PUT' : 'DELETE',
       headers: this._headers,
     }).then((res) => this._result(res));
   }
 }
 const api = new Api({
-  url: "https://api.mesto-kuskova.nomoredomains.monster", 
+  url: 'https://api.mesto-kuskova.nomoredomains.monster',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
     authorization: `Bearer ${localStorage.getItem('jwt')}`,
-  },       
+  },
 });
 
 export default api;

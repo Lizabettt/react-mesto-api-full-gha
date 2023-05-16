@@ -1,10 +1,9 @@
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
-import useForm from "../hooks/useForm";
-import StartPage from "./StartPage";
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import useForm from '../hooks/useForm';
+import StartPage from './StartPage';
 
 export default function Register({ onRegister }) {
-  
   const { values, setValues, handleChange } = useForm({});
 
   useEffect(() => {
@@ -20,17 +19,17 @@ export default function Register({ onRegister }) {
   return (
     <>
       <StartPage
-        name="register"
-        title="Регистрация"
-        btnText="Зарегистрироваться"
+        name='register'
+        title='Регистрация'
+        btnText='Зарегистрироваться'
         onSubmit={handleSubmit}
         onChange={handleChange}
-        valuesEmail={values.email || ""}
-        valuesPassword={values.password || ""}
+        valuesEmail={values.email || ''}
+        valuesPassword={values.password || ''}
       ></StartPage>
-      <p className="popup__question">
+      <p className='popup__question'>
         Уже зарегистрированы? &nbsp;
-        <Link className="popup__linkSignIn" to="/signin">
+        <Link className='popup__linkSignIn' to='/signin'>
           Войти
         </Link>
       </p>

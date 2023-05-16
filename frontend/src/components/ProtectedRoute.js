@@ -1,5 +1,5 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
+import React from 'react';
+import { Navigate } from 'react-router-dom';
 
 export default function ProtectedRouteElement({
   element: Component,
@@ -8,6 +8,6 @@ export default function ProtectedRouteElement({
   return props.loggedIn ? (
     <Component {...props} />
   ) : (
-    <Navigate to="/signin" replace />
+    <Navigate to='/signin' replace />
   );
 }
