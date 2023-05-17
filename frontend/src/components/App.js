@@ -54,6 +54,7 @@ export default function App() {
         if (res.token) {
           localStorage.setItem('jwt', res.token);
           setLoggedIn(true);
+          setEmailUserHeader(res.email);
           navigate('/');
         }
       })
