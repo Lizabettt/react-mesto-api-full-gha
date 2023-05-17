@@ -71,7 +71,6 @@ export default function App() {
       .then((data) => {
         if (data) {
           console.log('reg');
-          setLoggedIn(true);
           navigate('/signin');
           setLuckRegister(true);
           setInfoTooltipPopupOpen(true);

@@ -3,26 +3,19 @@ require('dotenv').config(); // env-переменные из файла .env д�
 const express = require('express');
 
 const app = express();
-
 const { PORT = 3000 } = process.env;
 
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb');
 
-const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
+
 const rateLimit = require('express-rate-limit');
+const bodyParser = require('body-parser');
 const cors = require('./middlewares/cors');
 
 app.use(cors);
-
-//  Чтобы защититься от множества автоматических запросов
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // за 15 минут
-  max: 100, // можно совершить максимум 100 запросов с одного IP
-});
-app.use(limiter);// подключаем rate-limiter
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -33,27 +26,25 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 app.use(requestLogger);// за ним идут все обработчики роутов
 
-app.use(router);
-app.use(errorLogger);
-app.use(errors());
+//  Чтобы защититься от множества автоматических запросов
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // за 15 минут
+  max: 100, // можно совершить максимум 100 запросов с одного IP
+});
+app.use(limiter);// подключаем rate-limiter
 
-app.get('/crash-test', () => {
+app.get('/crash-test', () => { // до роутов, сразу после логгера
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
   }, 0);
 });
 
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;// если у ошибки нет статуса, выставляем 500
-  res
-    .status(statusCode)
-    .send({
-      // проверяем статус и выставляем сообщение в зависимости от него
-      message: statusCode === 500
-        ? 'Что-то на серверной стороне...'
-        : message,
-    });
-  next();
-});
+app.use(router);
+app.use(errorLogger);
+app.use(errors());
+
+const errorWithoutStatus = require('./middlewares/errorWithoutStatus');
+
+app.use(errorWithoutStatus);
 
 app.listen(PORT);
