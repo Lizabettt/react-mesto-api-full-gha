@@ -106,7 +106,7 @@ export default function App() {
  // eslint-disable-next-line 
   useEffect(() => {
     handleToken();
-  }, []); //  loggedIn
+  }, [loggedIn]); //  loggedIn
 
   //выход
   function handleExit() {
