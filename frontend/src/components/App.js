@@ -282,6 +282,7 @@ export default function App() {
           card={isDataCards}
           isOpen={chooseCard}
           onClose={closeAllPopups}
+          nameColor='light'
         />
         <InfoTooltip
           isOpen={isInfoTooltipPopupOpen}

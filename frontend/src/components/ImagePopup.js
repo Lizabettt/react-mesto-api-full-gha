@@ -1,7 +1,12 @@
 import closeIcon from '../images/Close_Icon.png';
 import { useEffect } from 'react';
 
-export default function ImagePopup({ name, card, isOpen, onClose }) {
+export default function ImagePopup({ 
+  name, 
+  card, 
+  isOpen, 
+  onClose, 
+  nameColor }) {
   //закрытие по esc
   function handleEscClose(evt) {
     evt.key === 'Escape' && onClose();
@@ -24,7 +29,7 @@ export default function ImagePopup({ name, card, isOpen, onClose }) {
       >
         <img className='popup__img-max' src={card.link} alt={card.name} />
         <figcaption className='popup__img-title'>{card.name}</figcaption>
-        <button className='popup__btn-close' type='button'>
+        <button className={`popup__btn-close_type-${nameColor}`} type='button'>
           <img
             className='popup__btn-close-pic'
             src={closeIcon}

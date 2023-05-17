@@ -60,7 +60,7 @@ const login = (req, res, next) => {
 // получение всех пользователей
 const getUsers = (req, res, next) => {
   User.find({})
-    .then((users) => res.send( users ))
+    .then((users) => res.send(users))
     .catch(next);
 };
 
@@ -72,7 +72,7 @@ const getUserMy = (req, res, next) => {
         next(new NotFound('Пользователь по указанному _id не найден'));
         return;
       }
-      res.send( user );
+      res.send(user);
     })
     .catch(next);
 };
@@ -88,7 +88,7 @@ const getUserId = (req, res, next) => {
         );
         return;
       }
-      res.send( user);
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -112,7 +112,7 @@ const changeUserData = (req, res, next) => {
         next(new NotFound('Пользователь по указанному _id не найден'));
         return;
       }
-      res.send( user );
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -138,7 +138,7 @@ const changeAvatar = (req, res, next) => {
         next(new NotFound('Пользователь по указанному _id не найден'));
         return;
       }
-      res.send( user );
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {

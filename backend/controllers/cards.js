@@ -6,7 +6,7 @@ const createCard = (req, res, next) => {
   const { name, link } = req.body;
   const owner = req.user._id;
   return Card.create({ name, link, owner })
-    .then((newCard) => res.status(201).send( newCard ))
+    .then((newCard) => res.status(201).send(newCard))
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(
@@ -37,7 +37,7 @@ const deleteCard = (req, res, next) => {
         const owner = card.owner.toString();
         if (req.user._id === owner) {
           Card.deleteOne(card).then(() => {
-            res.send( card );
+            res.send(card);
           });
           return;
         }
@@ -67,7 +67,7 @@ const onLikedCard = (req, res, next) => {
       if (!card) {
         next(new NotFound('Карточка с указанным _id не найдена.'));
       } else {
-        res.send( card );
+        res.send(card);
       }
     })
     .catch((err) => {
@@ -93,7 +93,7 @@ const offLikedCard = (req, res, next) => {
       if (!card) {
         next(new NotFound('Карточка с указанным _id не найдена.'));
       } else {
-        res.send( card );
+        res.send(card);
       }
     })
     .catch((err) => {
